@@ -100,16 +100,16 @@ def deep_rnn_model(input_dim, units, recur_layers, output_dim=29):
      # Add recurrent layer
     for i in range (recur_layers):
         if i == 0:
-            simp_rnn = GRU(output_dim, return_sequences=True, 
+            simp_rnn = GRU(units, return_sequences=True, 
                  implementation=2, name='rnn')(input_data)
         else: 
-            simp_rnn = GRU(output_dim, return_sequences=True, 
+            simp_rnn = GRU(units, return_sequences=True, 
                  implementation=2, name='rnn')(simp_rnn)
     # TODO: Add batch normalization 
     bn_rnn = BatchNormalization()(simp_rnn)
     
     # TODO: Add a TimeDistributed(Dense(output_dim)) layer
-    time_dense = TimeDistributed(Dense(output_dim))(rnn_input)
+    time_dense = TimeDistributed(Dense(output_dim))(bn_rnn)
     # Add softmax activation layer
     y_pred = Activation('softmax', name='softmax')(time_dense)
     # Specify the model
@@ -124,9 +124,10 @@ def bidirectional_rnn_model(input_dim, units, output_dim=29):
     # Main acoustic input
     input_data = Input(name='the_input', shape=(None, input_dim))
     # TODO: Add bidirectional recurrent layer
-    bidir_rnn = ...
+    bidir_rnn = bidirectional(GRU(units, return_sequences=True, 
+                 implementation=2, name='rnn')(input_data)
     # TODO: Add a TimeDistributed(Dense(output_dim)) layer
-    time_dense = ...
+    time_dense = TimeDistributed(Dense(output_dim))(bidir_rnn)
     # Add softmax activation layer
     y_pred = Activation('softmax', name='softmax')(time_dense)
     # Specify the model
