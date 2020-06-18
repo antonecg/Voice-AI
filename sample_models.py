@@ -124,7 +124,7 @@ def bidirectional_rnn_model(input_dim, units, output_dim=29):
     # Main acoustic input
     input_data = Input(name='the_input', shape=(None, input_dim))
     # TODO: Add bidirectional recurrent layer
-    bidir_rnn = bidirectional(GRU(units, return_sequences=True, 
+    bidir_rnn = Bidirectional(GRU(units, return_sequences=True, 
                  implementation=2, name='rnn'))(input_data)
     batchnorm = BatchNormalization()(bidir_rnn) 
     # TODO: Add a TimeDistributed(Dense(output_dim)) layer
@@ -153,7 +153,7 @@ def final_model(input_dim, filters, kernel_size, conv_stride,
     # Add batch normalization
     bn_cnn = BatchNormalization(name='bn_conv_1d')(conv_1d)
     # Add a recurrent layer
-    bidir_rnn = bidirectional(GRU(units, return_sequences=True, 
+    bidir_rnn = Bidirectional(GRU(units, return_sequences=True, 
                  implementation=2, name='rnn'))(bn_cnn)
     # TODO: Add batch normalization
     batchnorm = BatchNormalization()(bidir_rnn)
