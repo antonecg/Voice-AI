@@ -101,10 +101,10 @@ def deep_rnn_model(input_dim, units, recur_layers, output_dim=29):
     for i in range (recur_layers):
         if i == 0:
             simp_rnn = GRU(units, return_sequences=True, 
-                 implementation=2, name='rnn')(input_data)
+                 implementation=2)(input_data)
         else: 
             simp_rnn = GRU(units, return_sequences=True, 
-                 implementation=2, name='rnn')(simp_rnn)
+                 implementation=2)(simp_rnn)
     # TODO: Add batch normalization 
     batchnorm = BatchNormalization()(simp_rnn)
     
