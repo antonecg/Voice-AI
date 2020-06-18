@@ -38,7 +38,7 @@ def rnn_model(input_dim, units, activation, output_dim=29):
     model.output_length = lambda x: x
     print(model.summary())
     return model
- 
+  
 
 def cnn_rnn_model(input_dim, filters, kernel_size, conv_stride,
     conv_border_mode, units, output_dim=29):
